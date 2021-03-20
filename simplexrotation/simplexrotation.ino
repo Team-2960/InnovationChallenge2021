@@ -27,6 +27,8 @@ void setup() {
 
 
   pinMode(5,OUTPUT);
+
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -38,16 +40,28 @@ void loop() {
 
   double rx=atan2(a.acceleration.x,a.acceleration.z)*(180/PI);
   double ry=atan2(a.acceleration.y,a.acceleration.z)*(180/PI);
+ // Serial.println(rx);
+Serial.print("Acceleration X: ");
+  Serial.print(a.acceleration.x);
+  Serial.print(", Y: ");
+  Serial.print(a.acceleration.y);
+  Serial.print(", Z: ");
+  Serial.print(a.acceleration.z);
+  Serial.println(" m/s^2");
+
 
 
   if(rx>angleLimit||rx<-angleLimit){ 
     colorWipe(strip.Color(255,   0,   0), 10); // Red
     analogWrite(5,128);
+
+    
   }
   else{ 
     colorWipe(strip.Color(  0, 255,   0), 10); // Green
     analogWrite(5,0);
-  } 
+  }
+  delay (200); 
 }
 
 void colorWipe(uint32_t color, int wait) {
